@@ -1,0 +1,105 @@
+/*
+	H2 Schema
+	@author: Adail Carvalho
+	@since : 2018-04-28
+*/
+
+
+-- SEQUENCE
+DROP SEQUENCE project_seq;
+ CREATE SEQUENCE project_seq START WITH 1 INCREMENT BY 1;
+ 
+DROP SEQUENCE employee_seq;
+CREATE SEQUENCE employee_seq START WITH 1 INCREMENT BY 1;
+ 
+DROP SEQUENCE manager_seq; 
+CREATE SEQUENCE manager_seq START WITH 1 INCREMENT BY 1; 
+
+DROP SEQUENCE user_seq;
+CREATE SEQUENCE user_seq START WITH 1 INCREMENT BY 1;
+ 
+-- SCHEMAS / TABLES
+CREATE SCHEMA IF NOT EXISTS staff;
+DROP TABLE IF EXISTS staff.EMPLOYEE;
+CREATE TABLE staff.EMPLOYEE
+(
+	id_employee INTEGER NOT NULL,
+	cod_employee VARCHAR(64) NOT NULL,
+	dsc_team VARCHAR(128),
+	dsc_name VARCHAR(64) NOT NULL,
+	dsc_email VARCHAR(64),
+	dsc_skill VARCHAR(128),
+	fk_id_project INTEGER,
+	dsc_persisted_by VARCHAR(32) DEFAULT 'API',
+	PRIMARY KEY (id_employee, fk_id_project),
+	UNIQUE KEY UNIQUE_COD_EMPLOYEE (cod_employee)
+);
+
+DROP TABLE IF EXISTS staff.MANAGER;
+CREATE TABLE staff.MANAGER
+(
+	id_manager INTEGER NOT NULL,
+	cod_manager VARCHAR(64) NOT NULL,
+	dsc_name VARCHAR(64) NOT NULL,
+	dsc_email VARCHAR(64),
+	dsc_skill VARCHAR(128),
+	dsc_persisted_by VARCHAR(32) DEFAULT 'API',
+	PRIMARY KEY (id_manager),
+	UNIQUE KEY UNIQUE_COD_MANAGER (cod_manager)
+);
+
+CREATE SCHEMA IF NOT EXISTS auth;
+DROP TABLE IF EXISTS auth.SYS_USER;
+CREATE TABLE auth.SYS_USER
+(
+	id_user INTEGER NOT NULL,
+	cod_username VARCHAR(32) NOT NULL,
+	cod_password VARCHAR NOT NULL,
+	dsc_user VARCHAR,
+	flg_is_admin VARCHAR(1) DEFAULT 'Y',
+	dsc_persisted_by VARCHAR(32) DEFAULT 'API',
+	PRIMARY KEY (id_user),
+	UNIQUE KEY UNIQUE_COD_USERNAME (cod_username)
+);
+
+CREATE SCHEMA IF NOT EXISTS pm;
+DROP TABLE IF EXISTS pm.PROJECT;
+CREATE TABLE pm.PROJECT
+(
+	id_project INTEGER NOT NULL,
+	fk_id_manager INTEGER NOT NULL,
+	fk_id_user INTEGER NOT NULL,
+	cod_project VARCHAR(32),
+	dsc_project VARCHAR(64),
+	dat_init_plan DATETIME,
+	dat_end_plan DATETIME,
+	dsc_persisted_by VARCHAR(32) DEFAULT 'API',
+	PRIMARY KEY (id_project),
+	UNIQUE KEY UNIQUE_COD_PROJECT (cod_project)
+);
+
+CREATE SCHEMA IF NOT EXISTS batch;
+DROP TABLE IF EXISTS batch.STAGE_PROJECT;
+CREATE TABLE batch.STAGE_PROJECT
+(	
+	project_cod VARCHAR(32),
+	project_name VARCHAR(128),
+	plan_init DATETIME,
+	plan_end DATETIME,
+	manager_cod VARCHAR(32),
+	manager_name VARCHAR(64),
+	manager_email VARCHAR(64),
+	manager_skill VARCHAR(512),
+	employee_cod VARCHAR(32),
+	employee_name VARCHAR(64),
+	employee_email VARCHAR(64),
+	employee_team VARCHAR(64),
+	employee_skill VARCHAR(512)
+);
+
+-- Foreing Keys
+ALTER TABLE pm.PROJECT ADD FOREIGN KEY (fk_id_manager) REFERENCES staff.MANAGER(id_manager);
+ALTER TABLE pm.PROJECT ADD FOREIGN KEY (fk_id_user) REFERENCES auth.SYS_USER(id_user);
+ALTER TABLE staff.EMPLOYEE ADD FOREIGN KEY (fk_id_project) REFERENCES pm.PROJECT(id_project);
+
+ALTER TABLE pm.PROJECT ADD CONSTRAINT TEST_DATE_INTEG CHECK  (dat_end_plan > dat_init_plan)

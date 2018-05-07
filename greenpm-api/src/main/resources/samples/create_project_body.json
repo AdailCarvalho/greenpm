@@ -1,0 +1,30 @@
+[{
+	"projectName":"Route Reprocessing",
+	"username": "admin",
+	"password" : "admin123",
+	"pmName":"Juan Carlos",
+	"pmEmail" : "juan.carlos@gmail.com", 
+	"pmSkill" : "SCRUM, KAMBAM",
+	"employee":
+	[
+		{"name":"Bojack Horseman", "email": "bojack@gmail.com","team":"Integration", "skill":"ETL,Stream Processing, Microservices"},
+		{"name":"Mr. Peanut Butter","email": "peanut@gmail.com" ,"team":"Quality Assurance", "skill":"E2E Tests,Functional Tests,API Integration Tests"}
+	],
+	"planDatInit":"05/21/2018",
+	"planDatEnd" :"10/16/2018"
+},
+{
+	"projectName":"Track Company X",
+	"username": "admin",
+	"password" : "admin123",
+	"pmName":"Anderson Mendes",
+	"pmEmail" : "anderson@gmail.com", 
+	"pmSkill" : "Scrum,Kanban,Lean Startup,XP",
+	"employee":
+	[
+		{"name":"Jay Bilzerian", "email": "bilzerian@yahoo.com","team":"Quality Assurance", "skill":"E2E Tests,Manual Tests,API Integration Tests"},
+		{"name":"Missy","email": "missy@gmail.com" ,"team":"Integration", "skill":"Apache Kafka,Active MQ,Hadoop,Presto"}
+	],
+	"planDatInit":"05/21/2018",
+	"planDatEnd" :"10/16/2018"
+}]
