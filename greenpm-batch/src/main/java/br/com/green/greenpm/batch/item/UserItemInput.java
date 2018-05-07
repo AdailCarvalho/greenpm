@@ -4,11 +4,11 @@ package br.com.green.greenpm.batch.item;
  * 
  * @author Adail Carvalho
  * 
- * @since 2018-05-04
+ * @since 2018-05-07
  *
  */
-public class UserItemOutput {
-
+public class UserItemInput {
+    
     private Long id;
     
     private String username;
@@ -19,34 +19,15 @@ public class UserItemOutput {
     
     private String flgIsAdmin;
     
-    public UserItemOutput() {
-        
-    }
-    
-    public UserItemOutput(Long id) {
-        this.id = id;
-    }
-    
-    public UserItemOutput(String username, String dscUsername) {
-        this.username = username;
-        this.dscUsername = dscUsername;
+    public UserItemInput() {
+        this.flgIsAdmin = "N";
     }
 
-
-
-    public UserItemOutput(String username, String dscUsername, String password, String flgIsAdmin) {
+    public UserItemInput(String username, String dscUsername, String password, String flgIsAdmin) {
         this.username = username;
         this.dscUsername = dscUsername;
         this.password = password;
         this.flgIsAdmin = flgIsAdmin;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -79,5 +60,19 @@ public class UserItemOutput {
 
     public void setFlgIsAdmin(String flgIsAdmin) {
         this.flgIsAdmin = flgIsAdmin;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "UserItemInput [id=" + id + ", username=" + username + ", dscUsername=" + dscUsername + ", password="
+                + password + ", flgIsAdmin=" + flgIsAdmin + "]";
     }
 }

@@ -27,9 +27,14 @@ public class Query {
     
     //Select
     public static final String SELECT_MANAGER = "SELECT DISTINCT manager_cod, manager_name, manager_email, manager_skill FROM batch.STAGE_PROJECT"
-            + " where manager_cod not in (SELECT DISTINCT cod_manager FROM staff.MANAGER )";
-            
+            + " WHERE manager_cod NOT IN (SELECT DISTINCT cod_manager FROM staff.MANAGER )";
     
+    public static final String SELECT_USER = "SELECT DISTINCT employee_cod AS cod_username, employee_name AS dsc_username FROM batch.STAGE_PROJECT "
+            + "WHERE employee_cod NOT IN (SELECT DISTINCT cod_username FROM auth.SYS_USER)";
+    
+    public static final String SELECT_EMPLOYEE = "SELECT DISTINCT employee_cod, employee_name, employee_email, employee_team,"
+            + "employee_skill FROM batch.STAGE_PROJECT WHERE employee_cod NOT IN (SELECT DISTINCT cod_employee FROM staff.EMPLOYEE)";
+            
     //Delete
     public static final String TRUNCATE_RAW = "TRUNCATE TABLE batch.STAGE_PROJECT";
 }

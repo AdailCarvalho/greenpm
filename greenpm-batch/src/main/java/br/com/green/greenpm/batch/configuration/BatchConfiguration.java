@@ -18,8 +18,6 @@ import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilde
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.repeat.RepeatContext;
-import org.springframework.batch.repeat.exception.ExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,12 +27,15 @@ import br.com.green.greenpm.batch.item.ManagerItemInput;
 import br.com.green.greenpm.batch.item.ManagerItemOutput;
 import br.com.green.greenpm.batch.item.ProjectItemInput;
 import br.com.green.greenpm.batch.item.RawItemOutput;
+import br.com.green.greenpm.batch.item.UserItemInput;
 import br.com.green.greenpm.batch.mapper.ManagerItemMapper;
+import br.com.green.greenpm.batch.mapper.UserItemMapper;
 import br.com.green.greenpm.batch.notification.JobCompletionNotificationListener;
 import br.com.green.greenpm.batch.query.Query;
 import br.com.green.greenpm.batch.transform.ManagerItemProcessor;
 import br.com.green.greenpm.batch.transform.ProjectItemProcessor;
 import br.com.green.greenpm.batch.transform.RawItemProcessor;
+import br.com.green.greenpm.batch.transform.UserItemProcessor;
 
 @Configuration
 @EnableBatchProcessing
@@ -72,12 +73,23 @@ public class BatchConfiguration {
     
     @Bean
     public JdbcCursorItemReader<ManagerItemInput> managerItemReader() {
-        LOGGER.info("Creating JDBC Item Reader...");
+        LOGGER.info("Creating Manager JDBC Item Reader...");
         
         JdbcCursorItemReader<ManagerItemInput> jdbcReader = new JdbcCursorItemReader<>();
         jdbcReader.setDataSource(this.dataSource);
         jdbcReader.setSql(Query.SELECT_MANAGER);
         jdbcReader.setRowMapper(new ManagerItemMapper());
+        return jdbcReader;
+    }
+    
+    @Bean
+    public JdbcCursorItemReader<UserItemInput> userItemReader() {
+        LOGGER.info("Creating User JDBC Item Reader...");
+        
+        JdbcCursorItemReader<UserItemInput> jdbcReader = new JdbcCursorItemReader<>();
+        jdbcReader.setDataSource(this.dataSource);
+        jdbcReader.setSql(Query.SELECT_USER);
+        jdbcReader.setRowMapper(new UserItemMapper());
         return jdbcReader;
     }
     
@@ -94,6 +106,11 @@ public class BatchConfiguration {
     @Bean
     public RawItemProcessor rawItemProcessor() {
         return new RawItemProcessor();
+    }
+    
+    @Bean
+    public UserItemProcessor userItemProcessor() {
+        return new UserItemProcessor();
     }
     
     @Bean
@@ -115,13 +132,23 @@ public class BatchConfiguration {
     }
     
     @Bean
+    public JdbcBatchItemWriter<UserItemInput> userItemWriter(DataSource datasource) {
+        return new JdbcBatchItemWriterBuilder<UserItemInput>()
+                .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
+                .sql(Query.INSERT_USER)
+                .dataSource(datasource)
+                .build();
+    }
+    
+    @Bean
     public Job importProjectJob(JobCompletionNotificationListener listener, 
-            Step processRawDataStp1, Step processManagerDataStp2) {
+            Step processRawDataStp1, Step processManagerDataStp2, Step processUserDataStp3) {
         return builderFactory.get("importProjectJob")
             .incrementer(new RunIdIncrementer())
             .listener(listener)
             .start(processRawDataStp1)
             .next(processManagerDataStp2)
+            .next(processUserDataStp3)
             .build();
     }
 
@@ -141,6 +168,16 @@ public class BatchConfiguration {
                 .<ManagerItemInput, ManagerItemOutput> chunk(100)
                 .reader(managerItemReader())
                 .processor(managerItemProcessor())
+                .writer(writer)
+                .build();
+    }
+    
+    @Bean
+    public Step processUserDataStp3(JdbcBatchItemWriter<UserItemInput> writer) {
+        return stepBuilderFactory.get("processUserDataStp3")
+                .<UserItemInput, UserItemInput> chunk(100)
+                .reader(userItemReader())
+                .processor(userItemProcessor())
                 .writer(writer)
                 .build();
     }

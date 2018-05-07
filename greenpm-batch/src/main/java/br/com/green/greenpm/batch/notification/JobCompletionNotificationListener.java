@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import br.com.green.greenpm.batch.configuration.FileSystemConfiguration;
-import br.com.green.greenpm.batch.item.ManagerItemOutput;
 import br.com.green.greenpm.batch.item.ProjectItemInput;
 import br.com.green.greenpm.batch.query.Query;
 
