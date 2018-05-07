@@ -1,38 +1,36 @@
-# Package Files #
-*.jar
-*.war
-*.ear
-
-#java/scala
-*.class
-*.log
-
-#intellij
-*.iml
-*/*.iml
-*.idea
-.idea
+*.java.hsp
+*.sonarj
+*.sw*
 .DS_Store
-*/.DS_Store
+.settings
+.springBeans
+bin
+build.sh
+integration-repo
+ivy-cache
+jxl.log
+jmx.log
+derby.log
+spring-test/test-output/
+.gradle
+argfile*
+pom.xml
+activemq-data/
 
-#eclipse
-*.prefs
-
-# sbt specific
-.cache
-.history
-.lib/
-dist/*
+classes/
+/build
+buildSrc/build
+/spring-*/build
+/src/asciidoc/build
 target/
-lib_managed/
-src_managed/
-project/boot/
-project/plugins/project/
 
-# Scala-IDE specific
-.scala_dependencies
-.worksheet
+# Eclipse artifacts, including WTP generated manifests
 .classpath
 .project
-.settings/org.eclipse.wst.common.component
-.settings/org.eclipse.wst.common.project.facet.core.xml
+spring-*/src/main/java/META-INF/MANIFEST.MF
+
+# IDEA artifacts and output dirs
+*.iml
+*.ipr
+*.iws
+.idea
