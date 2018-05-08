@@ -19,8 +19,11 @@ public class UserItemInput {
     
     private String flgIsAdmin;
     
+    private String persistedBy;
+    
     public UserItemInput() {
         this.flgIsAdmin = "N";
+        this.persistedBy = "BATCH";
     }
 
     public UserItemInput(String username, String dscUsername, String password, String flgIsAdmin) {
@@ -70,9 +73,17 @@ public class UserItemInput {
         this.id = id;
     }
 
+    public String getPersistedBy() {
+        return persistedBy;
+    }
+
+    public void setPersistedBy(String persistedBy) {
+        this.persistedBy = persistedBy;
+    }
+
     @Override
     public String toString() {
         return "UserItemInput [id=" + id + ", username=" + username + ", dscUsername=" + dscUsername + ", password="
-                + password + ", flgIsAdmin=" + flgIsAdmin + "]";
+                + password + ", flgIsAdmin=" + flgIsAdmin + ", persistedBy=" + persistedBy + "]";
     }
 }

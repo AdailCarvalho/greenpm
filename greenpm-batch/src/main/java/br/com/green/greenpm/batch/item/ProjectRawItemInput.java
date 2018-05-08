@@ -1,27 +1,19 @@
 package br.com.green.greenpm.batch.item;
 
-import java.sql.Date;
-
 /**
  * 
  * @author Adail Carvalho
  * 
- * @since 2018-05-06
+ * @since 2018-05-02
  *
  */
-public class RawItemOutput {
+public class ProjectRawItemInput {
 
-    private String codProject;
-    
-    private String codEmployee;
-    
-    private String codManager;
-    
     private String projectName;
     
-    private Date plannedStart;
+    private String plannedStart;
     
-    private Date plannedEnd;
+    private String plannedEnd;
     
     private String pm;
     
@@ -36,33 +28,21 @@ public class RawItemOutput {
     private String employeeTeam;
     
     private String employeeSkills;
-   
-    public RawItemOutput() {
+    
+    public ProjectRawItemInput() {
         
     }
-
-    public String getCodProject() {
-        return codProject;
+    
+    public ProjectRawItemInput(String projectName, String pm) {
+        this.projectName = projectName;
+        this.pm = pm;
     }
 
-    public void setCodProject(String codProject) {
-        this.codProject = codProject;
-    }
-
-    public String getCodManager() {
-        return codManager;
-    }
-
-    public void setCodManager(String codManager) {
-        this.codManager = codManager;
-    }
-
-    public String getCodEmployee() {
-        return codEmployee;
-    }
-
-    public void setCodEmployee(String codEmployee) {
-        this.codEmployee = codEmployee;
+    public ProjectRawItemInput(String projectName, String plannedStart, String plannedEnd, String pm) {
+        this.projectName = projectName;
+        this.plannedStart = plannedStart;
+        this.plannedEnd = plannedEnd;
+        this.pm = pm;
     }
 
     public String getProjectName() {
@@ -73,19 +53,19 @@ public class RawItemOutput {
         this.projectName = projectName;
     }
 
-    public Date getPlannedStart() {
+    public String getPlannedStart() {
         return plannedStart;
     }
 
-    public void setPlannedStart(Date plannedStart) {
+    public void setPlannedStart(String plannedStart) {
         this.plannedStart = plannedStart;
     }
 
-    public Date getPlannedEnd() {
+    public String getPlannedEnd() {
         return plannedEnd;
     }
 
-    public void setPlannedEnd(Date plannedEnd) {
+    public void setPlannedEnd(String plannedEnd) {
         this.plannedEnd = plannedEnd;
     }
 
@@ -121,33 +101,33 @@ public class RawItemOutput {
         this.employeeName = employeeName;
     }
 
-
     public String getEmployeeEmail() {
         return employeeEmail;
     }
-
 
     public void setEmployeeEmail(String employeeEmail) {
         this.employeeEmail = employeeEmail;
     }
 
-
     public String getEmployeeTeam() {
         return employeeTeam;
     }
-
 
     public void setEmployeeTeam(String employeeTeam) {
         this.employeeTeam = employeeTeam;
     }
 
-
     public String getEmployeeSkills() {
         return employeeSkills;
     }
 
-
     public void setEmployeeSkills(String employeeSkills) {
         this.employeeSkills = employeeSkills;
+    }
+
+    @Override
+    public String toString() {
+        return "ProjectItemInput [projectName=" + projectName + ", plannedStart=" + plannedStart + ", plannedEnd="
+                + plannedEnd + ", pm=" + pm + "]";
     }
 }

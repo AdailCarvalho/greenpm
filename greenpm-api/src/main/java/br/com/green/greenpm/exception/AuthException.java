@@ -27,7 +27,7 @@ public class AuthException extends Exception {
     
     private static String generateMessage(String entity, Map<String, String> searchParams) {
         return StringUtils.capitalize(entity) + 
-                " with following username was not found => " + searchParams;
+                " was unable to authenticate the following user => " + searchParams;
     }
     
     private static <K, V> Map<K, V> toMap(

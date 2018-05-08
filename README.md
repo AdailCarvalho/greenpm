@@ -26,8 +26,7 @@ provides the necessary database structure for both applications use. **The DDL a
 
 The picture bellow ilustrates the Database MR:
 
-![relacao](https://user-images.githubusercontent.com/6726365/39716052-98aff814-5205-11e8-8ae4-0c5a0318e6c2.png)
-
+![relacao](https://user-images.githubusercontent.com/6726365/39737638-b27152aa-525c-11e8-9c69-c7dfd6fd5298.png)
 
 Detailing entities:
 
@@ -47,3 +46,12 @@ Detailing entities:
 To build the projects, run:
 
 	mvn clean package
+
+## Usage
+
+*Check each module's README.*
+	
+## Author
+
+
+LinkedIn - [Adail Carvalho](https://www.linkedin.com/in/adail-carvalho-a34343106)

@@ -1,48 +1,79 @@
 package br.com.green.greenpm.batch.item;
 
+import java.sql.Date;
+
 /**
  * 
  * @author Adail Carvalho
  * 
- * @since 2018-05-02
+ * @since 2018-02-03
  *
  */
 public class ProjectItemInput {
-
+    
+    private Long projectId;
+    
+    private Long managerId;
+    
+    private Long userId;
+    
+    private String projectCod;
+    
     private String projectName;
     
-    private String plannedStart;
+    private Date datInitPlan;
     
-    private String plannedEnd;
+    private Date datEndPlan;
     
-    private String pm;
+    private String persistedBy;
     
-    private String pmEmail;
-    
-    private String pmSkills;
-    
-    private String employeeName;
-    
-    private String employeeEmail;
-    
-    private String employeeTeam;
-    
-    private String employeeSkills;
+    private String flgClosedProject;
     
     public ProjectItemInput() {
-        
+        persistedBy = "BATCH";
+        flgClosedProject = "N";
     }
     
-    public ProjectItemInput(String projectName, String pm) {
-        this.projectName = projectName;
-        this.pm = pm;
+    public ProjectItemInput(Long projectId) {
+        this.projectId = projectId;
     }
 
-    public ProjectItemInput(String projectName, String plannedStart, String plannedEnd, String pm) {
-        this.projectName = projectName;
-        this.plannedStart = plannedStart;
-        this.plannedEnd = plannedEnd;
-        this.pm = pm;
+    public ProjectItemInput(Long projectId, Long managerId, String projectCod) {
+        this.projectId = projectId;
+        this.managerId = managerId;
+        this.projectCod = projectCod;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getProjectCod() {
+        return projectCod;
+    }
+
+    public void setProjectCod(String projectCod) {
+        this.projectCod = projectCod;
     }
 
     public String getProjectName() {
@@ -53,81 +84,35 @@ public class ProjectItemInput {
         this.projectName = projectName;
     }
 
-    public String getPlannedStart() {
-        return plannedStart;
+    public Date getDatInitPlan() {
+        return datInitPlan;
     }
 
-    public void setPlannedStart(String plannedStart) {
-        this.plannedStart = plannedStart;
+    public void setDatInitPlan(Date datInitPlan) {
+        this.datInitPlan = datInitPlan;
     }
 
-    public String getPlannedEnd() {
-        return plannedEnd;
+    public Date getDatEndPlan() {
+        return datEndPlan;
     }
 
-    public void setPlannedEnd(String plannedEnd) {
-        this.plannedEnd = plannedEnd;
+    public void setDatEndPlan(Date datEndPlan) {
+        this.datEndPlan = datEndPlan;
     }
 
-    public String getPm() {
-        return pm;
+    public String getPersistedBy() {
+        return persistedBy;
     }
 
-    public void setPm(String pm) {
-        this.pm = pm;
+    public void setPersistedBy(String persistedBy) {
+        this.persistedBy = persistedBy;
     }
 
-    public String getPmEmail() {
-        return pmEmail;
+    public String getFlgClosedProject() {
+        return flgClosedProject;
     }
 
-    public void setPmEmail(String pmEmail) {
-        this.pmEmail = pmEmail;
-    }
-
-    public String getPmSkills() {
-        return pmSkills;
-    }
-
-    public void setPmSkills(String pmSkills) {
-        this.pmSkills = pmSkills;
-    }
-
-    public String getEmployeeName() {
-        return employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
-    }
-
-    public String getEmployeeEmail() {
-        return employeeEmail;
-    }
-
-    public void setEmployeeEmail(String employeeEmail) {
-        this.employeeEmail = employeeEmail;
-    }
-
-    public String getEmployeeTeam() {
-        return employeeTeam;
-    }
-
-    public void setEmployeeTeam(String employeeTeam) {
-        this.employeeTeam = employeeTeam;
-    }
-
-    public String getEmployeeSkills() {
-        return employeeSkills;
-    }
-
-    public void setEmployeeSkills(String employeeSkills) {
-        this.employeeSkills = employeeSkills;
-    }
-
-    @Override
-    public String toString() {
-        return "ProjectItemInput [projectName=" + projectName + ", plannedStart=" + plannedStart + ", plannedEnd="
-                + plannedEnd + ", pm=" + pm + "]";
+    public void setFlgClosedProject(String flgClosedProject) {
+        this.flgClosedProject = flgClosedProject;
     }
 }

@@ -7,7 +7,7 @@ package br.com.green.greenpm.batch.item;
  * @since 2018-05-05
  *
  */
-public class EmployeeItemOutput {
+public class EmployeeItemInput {
 
     private Long id;
     
@@ -23,15 +23,17 @@ public class EmployeeItemOutput {
     
     private String employeeEmail;
     
-    public EmployeeItemOutput() {
-        
+    private String persistedBy;
+    
+    public EmployeeItemInput() {
+        persistedBy = "BATCH";
     }
     
-    public EmployeeItemOutput(Long id) {
+    public EmployeeItemInput(Long id) {
         this.id = id;
     }
 
-    public EmployeeItemOutput(String employeeCod, String employeeName, String employeeTeam, String employeeSkills,
+    public EmployeeItemInput(String employeeCod, String employeeName, String employeeTeam, String employeeSkills,
             String employeeEmail) {
         this.employeeCod = employeeCod;
         this.employeeName = employeeName;
@@ -94,5 +96,13 @@ public class EmployeeItemOutput {
 
     public void setEmployeeEmail(String employeeEmail) {
         this.employeeEmail = employeeEmail;
+    }
+    
+    public String getPersistedBy() {
+        return persistedBy;
+    }
+
+    public void setPersistedBy(String persistedBy) {
+        this.persistedBy = persistedBy;
     }
 }

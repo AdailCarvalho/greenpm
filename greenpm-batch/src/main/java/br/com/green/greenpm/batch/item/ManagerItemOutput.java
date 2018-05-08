@@ -12,8 +12,10 @@ public class ManagerItemOutput {
     
     private String pmEmail;
     
+    private String persistedBy;
+    
     public ManagerItemOutput() {
-        
+        persistedBy = "BATCH";
     }
 
     public ManagerItemOutput(Long id) {
@@ -70,9 +72,17 @@ public class ManagerItemOutput {
         this.pmEmail = pmEmail;
     }
 
+    public String getPersistedBy() {
+        return persistedBy;
+    }
+
+    public void setPersistedBy(String persistedBy) {
+        this.persistedBy = persistedBy;
+    }
+
     @Override
     public String toString() {
-        return "ManagerItemOutput [id=" + id + ", pmCod=" + pmCod + ", pmName=" + pmName + ", pmSkills="
-                + pmSkills + ", pmEmail=" + pmEmail + "]";
+        return "ManagerItemOutput [id=" + id + ", pmCod=" + pmCod + ", pmName=" + pmName + ", pmSkills=" + pmSkills
+                + ", pmEmail=" + pmEmail + ", persistedBy=" + persistedBy + "]";
     }
 }

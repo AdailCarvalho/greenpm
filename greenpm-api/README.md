@@ -72,10 +72,6 @@ A list representing all(max = 100) the projects registered on database.
 
 *Request template*
 
-
-
-*Request template*
-
 	GET /projects/{projectCod}
 	{
 	}
@@ -121,6 +117,24 @@ A project with the informed code.
 *Throws*
 
 *	*EntityNotFoundException* if project with the informed code was not found on database.
+
+**Action - file a project**
+
+*Request template*
+
+	PUT	/projects/{projectCod}
+
+Informe the project code you want to file. The attribute *flg_is_closed* on table **pm.PROJECT** will
+be setted to 'Y' (defaul is 'N'), indicating that the project is filed.
+
+	PUT /projects/TRC-20183
+
+*Throws*
+
+*	*EntityNotFoundException* if project with the informed code was not found on database.
+
+
+The 
 	
 ### /users
 
@@ -153,16 +167,28 @@ A list containing all registered users (max = 100).
 
 	[
 		{
-			"id": 1,
-			"username": "admin",
-			"descUsername": "admin",
-			"isAdmin": true
+			"id": 2,
+			"username": "bilzerian",
+			"descUsername": "bilzerian",
+			"isAdmin": false
 		},
 		{
 			"id": 3,
-			"username": "adailcf",
-			"descUsername": "Adail Carvalho",
-			"isAdmin": true
+			"username": "birch",
+			"descUsername": "birch",
+			"isAdmin": false
+		},
+		{
+			"id": 4,
+			"username": "bojack",
+			"descUsername": "bojack",
+			"isAdmin": false
+		},
+		{
+			"id": 5,
+			"username": "butter",
+			"descUsername": "butter",
+			"isAdmin": false
 		}
 	]
 
@@ -188,7 +214,3 @@ A user with the specific username. E.g: username = adailcf
 *Throws*
 
 *	*EntityNotFoundException* if a user with the given name was not found on database.
-
-## License
-
-Apache 2.0

@@ -54,6 +54,9 @@ public class ProjectDTO {
     @Column(name = "dsc_persisted_by")
     private String persistedBy;
     
+    @Column(name = "flg_closed_project")
+    private String flgClosedProject;
+    
     @ManyToOne
     @JoinColumn(name = "fk_id_user")
     private UserDTO user;
@@ -131,6 +134,18 @@ public class ProjectDTO {
 
     public void setEmployee(List<EmployeeDTO> employee) {
         this.employee = employee;
+    }
+
+    public String getFlgClosedProject() {
+        return flgClosedProject;
+    }
+
+    public void setFlgClosedProject(String flgClosedProject) {
+        this.flgClosedProject = flgClosedProject;
+    }
+
+    public void setPersistedBy(String persistedBy) {
+        this.persistedBy = persistedBy;
     }
 
     public String getPersistedBy() {

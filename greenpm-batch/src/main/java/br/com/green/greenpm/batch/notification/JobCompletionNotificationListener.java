@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import br.com.green.greenpm.batch.configuration.FileSystemConfiguration;
-import br.com.green.greenpm.batch.item.ProjectItemInput;
 import br.com.green.greenpm.batch.query.Query;
 
 /**
@@ -43,15 +42,7 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
     
     public void afterJob(JobExecution jobExecution) {
         if(jobExecution.getStatus() == BatchStatus.COMPLETED) {
-            LOGGER.info("!!! JOB FINISHED! Time to verify the results");
-
-            jdbcTemplate.query("SELECT DISTINCT project_name, plan_init, plan_end, manager_name FROM batch.STAGE_PROJECT",
-                (rs, row) -> new ProjectItemInput(
-                    rs.getString(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4))
-                ).forEach(input -> LOGGER.info("Found <" + input + "> in the database."));
+            LOGGER.info("!!! JOB FINISHED!");
         }
     }
 }

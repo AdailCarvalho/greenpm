@@ -36,7 +36,13 @@ public interface ProjectService {
     
     /**
      * List all projects persisted on db.
-     * @return
+    
+     * @return a list containin all (max = 100) projects recorded on database.
      */
     public List<ProjectModel> listAllProjects();
+    
+    /**
+     * Closes the informed project
+     */
+    public String closeProject(String projectCod) throws EntityNotFoundException;
 }

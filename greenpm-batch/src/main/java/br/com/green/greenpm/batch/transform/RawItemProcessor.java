@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 
 import br.com.green.greenpm.batch.formatter.DataFormatter;
-import br.com.green.greenpm.batch.item.ProjectItemInput;
-import br.com.green.greenpm.batch.item.RawItemOutput;
+import br.com.green.greenpm.batch.item.ProjectRawItemInput;
+import br.com.green.greenpm.batch.item.ProjectRawItemOutput;
 import br.com.green.greenpm.batch.utils.DateUtils;
 
 /**
@@ -16,15 +16,15 @@ import br.com.green.greenpm.batch.utils.DateUtils;
  * @since 2018-05-05
  *
  */
-public class RawItemProcessor implements ItemProcessor<ProjectItemInput, RawItemOutput>{
+public class RawItemProcessor implements ItemProcessor<ProjectRawItemInput, ProjectRawItemOutput>{
     
     private static final Logger LOGGER = LoggerFactory.getLogger(RawItemProcessor.class);
     
     private Integer nrow = 0;
 
     @Override
-    public RawItemOutput process(ProjectItemInput input) throws Exception {
-        RawItemOutput rawLine = new RawItemOutput();
+    public ProjectRawItemOutput process(ProjectRawItemInput input) throws Exception {
+        ProjectRawItemOutput rawLine = new ProjectRawItemOutput();
         
         rawLine.setCodProject(DataFormatter.generateCodeUsingRawText(input.getProjectName()));
         rawLine.setCodEmployee(DataFormatter.generateCodeUsingEmail(input.getEmployeeEmail()));

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,13 +76,22 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public String saveProject(ProjectVO project) throws EntityExistsException, AuthException {
         Optional<UserDTO> optUser = userRepo.findSysUserByUsername(project.getUsername());
+        if (!optUser.isPresent()) {
+            LOGGER.error("Failed to authenticate user => {}", project.getUsername());
+            throw new AuthException(UserDTO.class, "username", project.getUsername());
+        }  
+        
+        UserDTO user = optUser.get();
+        if (StringUtils.isBlank(project.getPassword()) 
+                || !user.getPassword().equals(project.getPassword())) {
+            LOGGER.error("Invalid password for user => {}", project.getUsername());
+            LOGGER.error("Passed password: {}, DB password : {}", project.getPassword(), user.getPassword());
+            throw new AuthException(UserDTO.class, "username", project.getUsername());
+        } 
         
         String projectCod = DataFormatter.generateCodeUsingRawText(project.getProjectName());
         Optional<ProjectDTO> proj = projectRepo.findProjectByProjectCod(projectCod);
-        if (!optUser.isPresent()) {
-            throw new AuthException(UserDTO.class, "username", project.getUsername());
-        }
-        
+      
         if (proj.isPresent()) {
             LOGGER.error("Project already exists. Checkout using the following code => " + projectCod);
             throw new EntityExistsException(ProjectDTO.class, "projectCod", projectCod);
@@ -89,7 +99,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         ProjectDTO projectDto = (ProjectDTO) DataFormatter
                 .buildEntityFromProject(project, ProjectDTO.class);
-        projectDto.setUser(optUser.get());
+        projectDto.setUser(user);
 
         ManagerDTO manager = (ManagerDTO) DataFormatter
                 .buildEntityFromProject(project, ManagerDTO.class);
@@ -125,5 +135,20 @@ public class ProjectServiceImpl implements ProjectService {
         
         return 
                 DataFormatter.buildProjectModelFromDTOList(projects.getContent());
+    }
+
+    @Transactional
+    @Override
+    public String closeProject(String projectCod) throws EntityNotFoundException {
+        Optional<ProjectDTO> project = projectRepo.findProjectByProjectCod(projectCod);
+        if (project.isPresent()) {
+            LOGGER.info("Updating project = >", project.get().getProjectCod());
+            projectRepo.updateProjectStatus(projectCod);
+        } else {
+            LOGGER.error("Project with the corresponding cod was not found => " + projectCod);
+            throw new EntityNotFoundException(ProjectDTO.class, "projectCod", projectCod);
+        }
+        
+        return projectCod;
     }
 }
