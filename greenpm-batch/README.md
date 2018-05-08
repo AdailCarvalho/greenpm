@@ -30,11 +30,11 @@ The file must have the following *header*:
 
 		# ProjectName,PlannedStart,PlannedEnd,PM,PMEmail,PMSkills,EmployeeName,EmployeeEmail,EmployeeTeam,EmployeeSkills
 
-## Default Definitions
+## Default Actions
 
-*	All the projects created through the batch processing area marke as *BATCH* on column **DSC_PERSISTED_BY**, from **pm.PROJECT** table;
+*	All the projects created through the batch processing are marked as *BATCH* on column **DSC_PERSISTED_BY**, from **pm.PROJECT** table;
 *	Batch has a pre-defined user(see *data.sql or pg_schema on src/main/resources*). All the projects persisted through batch are associated to Batch's user.
-	
+
 ## Running 
 
 	mvn spring-boot-run
