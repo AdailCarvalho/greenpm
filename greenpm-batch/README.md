@@ -13,7 +13,7 @@ Generating .jar:
 
 ### File
 
-The file to be imported must be disposed on the following directories:
+The file to be imported must be provided on the following directories:
 
 *Path*
 
